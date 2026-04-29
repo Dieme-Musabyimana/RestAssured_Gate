@@ -9,13 +9,11 @@ import payloads.UserPayload;
 import utils.ConfigLoader;
 
 import static api.application.UserApi.*;
-import static api.spec.SpecBuilder.*;
 import static payloads.UserPayload.createUserMap;
 import static utils.FakerUtils.*;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.equalTo;
 
 public class UserTests extends BaseTest {
 

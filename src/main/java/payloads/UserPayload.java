@@ -1,6 +1,5 @@
 package payloads;
 
-import utils.FakerUtils;
 import java.util.HashMap;
 
 import static utils.FakerUtils.*;
