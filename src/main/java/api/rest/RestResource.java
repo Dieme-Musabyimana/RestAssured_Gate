@@ -52,8 +52,6 @@ public class RestResource {
                 .post(path).
                 then().spec(getPostManResponseSpec())
                 .extract().response();
-
-
     }
     public static Response encodedTest (String path, String paramName, Object value  ){
         return given().spec(getPostManRequestSpec())

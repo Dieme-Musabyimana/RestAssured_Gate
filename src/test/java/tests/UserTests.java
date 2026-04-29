@@ -20,36 +20,31 @@ public class UserTests extends BaseTest {
     @Test
     public void getUsersTest() {
         UserApi.getUsers()
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
+                .then().statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
     public void createUserWithHashMap() {
         createUser(createUserMap())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
+                .then().statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithJson() {
         createUser(UserPayload.createUserJson())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
+                .then().statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithPOJO() {
         createUser(UserPayload.createUserPOJO())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
+                .then().statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void schemaValidationTest() {
         getUser(ConfigLoader.getUserId())
-                .then().assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchema(new File(ConfigLoader.getSchema())));    }
+                .then().body(JsonSchemaValidator.matchesJsonSchema(new File(ConfigLoader.getSchema())));    }
 
     @Test
     public void updateUserTest() {
@@ -63,13 +58,11 @@ public class UserTests extends BaseTest {
                 then().statusCode(StatusCode.CODE_200.code);
     }
 
-
     @Test
     public void fileUploadTest() {
 
         upload(new File(ConfigLoader.getFilePath()))
                 .then().statusCode(StatusCode.CODE_200.code);
-
     }
 
     @Test
