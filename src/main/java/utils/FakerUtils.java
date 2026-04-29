@@ -4,17 +4,20 @@ import com.github.javafaker.Faker;
 
 public class FakerUtils {
 
-    private static final Faker faker = new Faker();
-
     public static String getFirstName() {
-        return faker.name().firstName();
+        Faker faker = new Faker();
+        return faker.regexify("[A-Z][a-z]{6,10}");
     }
 
     public static String getLastName() {
-        return faker.name().lastName();
+        Faker faker = new Faker();
+        return faker.regexify("[A-Z][a-z]{6,12}");
     }
 
     public static int getAge() {
-        return faker.number().numberBetween(18, 60);
+        Faker faker = new Faker();
+        return Integer.parseInt(faker.regexify("[2-5][0-9]"));
     }
+
+
 }
