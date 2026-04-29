@@ -68,11 +68,7 @@ public class UserTests extends BaseTest {
     public void formUrlEncodedTest() {
         echoPost(getFirstName())
                 .then().statusCode(StatusCode.CODE_200.code);
-
-
     }
-
-
 
     @Test
     public void complexPojoTest(){
