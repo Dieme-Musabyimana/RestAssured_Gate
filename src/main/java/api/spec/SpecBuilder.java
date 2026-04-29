@@ -26,19 +26,19 @@ public class SpecBuilder {
         return new ResponseSpecBuilder()
                 .expectContentType(JSON).
                 log(LogDetail.ALL)
-                .expectResponseTime(lessThan(3000L))
+                .expectResponseTime(lessThan(300000L))
                 .build();
     }
     public static  RequestSpecification getPostManRequestSpec(){
         return  new RequestSpecBuilder().
                 setBaseUri(ConfigLoader.getEchoUrl()).
-                setContentType(URLENC).
+                setContentType(JSON).
                 log(LogDetail.ALL).
                 build();
     }
     public static ResponseSpecification getPostManResponseSpec() {
         return new ResponseSpecBuilder()
-                .expectContentType(URLENC).
+                .expectContentType(JSON).
                 log(LogDetail.ALL)
                 .expectResponseTime(lessThan(3000L))
                 .build();

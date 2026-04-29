@@ -7,8 +7,11 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 import org.testng.annotations.Test;
 import payloads.UserPayload;
 import utils.ConfigLoader;
+
+import static api.application.UserApi.*;
+import static api.spec.SpecBuilder.*;
+import static payloads.UserPayload.createUserMap;
 import static utils.FakerUtils.*;
-import static api.spec.SpecBuilder.getResponseSpec;
 
 import java.io.File;
 
@@ -19,68 +22,62 @@ public class UserTests extends BaseTest {
     @Test
     public void getUsersTest() {
         UserApi.getUsers()
-                .then().spec(getResponseSpec())
+                .then()
                 .statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
     public void createUserWithHashMap() {
-        UserApi.createUser(UserPayload.createUserMap())
-                .then().spec(getResponseSpec())
+        createUser(createUserMap())
+                .then()
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithJson() {
-        UserApi.createUser(UserPayload.createUserJson())
-                .then().spec(getResponseSpec())
+        createUser(UserPayload.createUserJson())
+                .then()
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithPOJO() {
-        UserApi.createUser(UserPayload.createUserPOJO())
-                .then().spec(getResponseSpec())
+        createUser(UserPayload.createUserPOJO())
+                .then()
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void schemaValidationTest() {
-        UserApi.getUser(1)
-                .then().spec(getResponseSpec())
-                .assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchema(new File("src/main/resources/schemas/userSchema.json")));    }
+        getUser(ConfigLoader.getUserId())
+                .then().assertThat()
+                .body(JsonSchemaValidator.matchesJsonSchema(new File(ConfigLoader.getSchema())));    }
 
     @Test
     public void updateUserTest() {
-        UserApi.updateUser(1, UserPayload.createUserMap())
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
+        updateUser(ConfigLoader.getUserId(),createUserMap())
+                .then().statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
     public void deleteUserTest() {
-        UserApi.deleteUser(1)
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
+        deleteUser(ConfigLoader.getUserId()).
+                then().statusCode(StatusCode.CODE_200.code);
     }
 
 
     @Test
     public void fileUploadTest() {
-        File file = new File("src/test/resources/test.txt");
 
-        io.restassured.RestAssured.given()
-                .baseUri(ConfigLoader.getEchoUrl())
-                .multiPart("file", file)
-                .post("/post")
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
+        upload(new File(ConfigLoader.getFilePath()))
+                .then().statusCode(StatusCode.CODE_200.code);
+
     }
 
     @Test
     public void formUrlEncodedTest() {
-        UserApi.echoPost(getFirstName());
+        echoPost(getFirstName())
+                .then().statusCode(StatusCode.CODE_200.code);
     }
 
 

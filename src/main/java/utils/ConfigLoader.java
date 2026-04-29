@@ -24,4 +24,14 @@ public class ConfigLoader {
     public static String getEchoUrl() {
         return properties.getProperty("echo.url");
     }
+    public static String getFilePath() {
+        return properties.getProperty("filePath");
+    }
+    public static String getUserId() {
+        return properties.getProperty("userId");
+    }
+    public static String getSchema() {
+        return properties.getProperty("schemaPath");
+    }
+
 }
