@@ -19,5 +19,9 @@ public class ConfigLoader {
 
     public static String getBaseUrl() {
         return properties.getProperty("base.url");
+
+    }
+    public static String getEchoUrl() {
+        return properties.getProperty("echo.url");
     }
 }

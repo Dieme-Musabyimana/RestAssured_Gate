@@ -9,6 +9,8 @@ import io.restassured.specification.ResponseSpecification;
 import utils.ConfigLoader;
 
 import static io.restassured.http.ContentType.JSON;
+import static io.restassured.http.ContentType.URLENC;
+import static org.hamcrest.Matchers.lessThan;
 
 public class SpecBuilder {
 
@@ -16,7 +18,7 @@ public class SpecBuilder {
         return new RequestSpecBuilder()
                 .setBaseUri(ConfigLoader.getBaseUrl())
                 .setContentType(JSON)
-                .log(io.restassured.filter.log.LogDetail.ALL)
+                .log(LogDetail.ALL)
                 .build();
     }
 
@@ -24,7 +26,22 @@ public class SpecBuilder {
         return new ResponseSpecBuilder()
                 .expectContentType(JSON).
                 log(LogDetail.ALL)
-                .expectResponseTime(org.hamcrest.Matchers.lessThan(3000L))
+                .expectResponseTime(lessThan(3000L))
                 .build();
     }
+    public static  RequestSpecification getPostManRequestSpec(){
+        return  new RequestSpecBuilder().
+                setBaseUri(ConfigLoader.getEchoUrl()).
+                setContentType(URLENC).
+                log(LogDetail.ALL).
+                build();
+    }
+    public static ResponseSpecification getPostManResponseSpec() {
+        return new ResponseSpecBuilder()
+                .expectContentType(URLENC).
+                log(LogDetail.ALL)
+                .expectResponseTime(lessThan(3000L))
+                .build();
+    }
+
 }

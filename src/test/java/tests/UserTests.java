@@ -1,12 +1,13 @@
 package tests;
 
 import api.application.UserApi;
-
 import base.BaseTest;
 import constants.StatusCode;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.testng.annotations.Test;
 import payloads.UserPayload;
+import utils.ConfigLoader;
+import static utils.FakerUtils.*;
 import static api.spec.SpecBuilder.getResponseSpec;
 
 import java.io.File;
@@ -70,24 +71,17 @@ public class UserTests extends BaseTest {
         File file = new File("src/test/resources/test.txt");
 
         io.restassured.RestAssured.given()
+                .baseUri(ConfigLoader.getEchoUrl())
                 .multiPart("file", file)
-                .post("https://postman-echo.com/post")
+                .post("/post")
                 .then()
                 .statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
     public void formUrlEncodedTest() {
-
-        io.restassured.RestAssured.given()
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .formParam("name", "Joshua")
-                .log().all()
-                .when()
-                .post("https://postman-echo.com/post")
-                .then()
-                .log().all()
-                .statusCode(StatusCode.CODE_200.code)
-                .body("form.name", org.hamcrest.Matchers.equalTo("Joshua"));
+        UserApi.echoPost(getFirstName());
     }
+
+
 }

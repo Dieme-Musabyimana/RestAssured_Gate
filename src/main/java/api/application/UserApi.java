@@ -11,7 +11,7 @@ public class UserApi {
     }
 
     public static Response getUser(int id) {
-        return RestResource.get(Routes.GET_SINGLE_USER.replace("{id}", String.valueOf(id)));
+        return RestResource.get(Routes.GET_SINGLE_USER, "id", id);
     }
 
     public static Response createUser(Object payload) {
@@ -19,10 +19,13 @@ public class UserApi {
     }
 
     public static Response updateUser(int id, Object payload) {
-        return RestResource.put(Routes.UPDATE_USER.replace("{id}", String.valueOf(id)), payload);
+        return RestResource.put(Routes.UPDATE_USER, "id", id, payload);
     }
 
     public static Response deleteUser(int id) {
-        return RestResource.delete(Routes.DELETE_USER.replace("{id}", String.valueOf(id)));
+        return RestResource.delete(Routes.DELETE_USER, "id", id);
+    }
+    public static Response echoPost(Object name ){
+        return RestResource.encodedTest(Routes.ECHO_POST,"name",  name);
     }
 }
