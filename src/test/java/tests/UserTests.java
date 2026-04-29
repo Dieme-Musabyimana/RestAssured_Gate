@@ -7,6 +7,7 @@ import constants.StatusCode;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.testng.annotations.Test;
 import payloads.UserPayload;
+import static api.spec.SpecBuilder.getResponseSpec;
 
 import java.io.File;
 
@@ -17,35 +18,35 @@ public class UserTests extends BaseTest {
     @Test
     public void getUsersTest() {
         UserApi.getUsers()
-                .then()
+                .then().spec(getResponseSpec())
                 .statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
     public void createUserWithHashMap() {
         UserApi.createUser(UserPayload.createUserMap())
-                .then()
+                .then().spec(getResponseSpec())
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithJson() {
         UserApi.createUser(UserPayload.createUserJson())
-                .then()
+                .then().spec(getResponseSpec())
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void createUserWithPOJO() {
         UserApi.createUser(UserPayload.createUserPOJO())
-                .then()
+                .then().spec(getResponseSpec())
                 .statusCode(StatusCode.CODE_201.code);
     }
 
     @Test
     public void schemaValidationTest() {
         UserApi.getUser(1)
-                .then()
+                .then().spec(getResponseSpec())
                 .assertThat()
                 .body(JsonSchemaValidator.matchesJsonSchema(new File("src/main/resources/schemas/userSchema.json")));    }
 
@@ -64,7 +65,6 @@ public class UserTests extends BaseTest {
     }
 
 
-
     @Test
     public void fileUploadTest() {
         File file = new File("src/test/resources/test.txt");
@@ -73,7 +73,7 @@ public class UserTests extends BaseTest {
                 .multiPart("file", file)
                 .post("https://postman-echo.com/post")
                 .then()
-                .statusCode(200);
+                .statusCode(StatusCode.CODE_200.code);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class UserTests extends BaseTest {
                 .post("https://postman-echo.com/post")
                 .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(StatusCode.CODE_200.code)
                 .body("form.name", org.hamcrest.Matchers.equalTo("Joshua"));
     }
 }

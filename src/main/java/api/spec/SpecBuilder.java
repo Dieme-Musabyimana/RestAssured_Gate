@@ -3,6 +3,7 @@ package api.spec;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import utils.ConfigLoader;
@@ -21,7 +22,8 @@ public class SpecBuilder {
 
     public static ResponseSpecification getResponseSpec() {
         return new ResponseSpecBuilder()
-                .expectContentType(JSON)
+                .expectContentType(JSON).
+                log(LogDetail.ALL)
                 .expectResponseTime(org.hamcrest.Matchers.lessThan(3000L))
                 .build();
     }
