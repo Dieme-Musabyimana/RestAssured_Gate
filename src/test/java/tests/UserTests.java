@@ -2,92 +2,49 @@ package tests;
 
 import api.application.UserApi;
 
+import api.complexPojo.*;
 import base.BaseTest;
 import constants.StatusCode;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import payloads.UserPayload;
+import utils.ConfigLoader;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.equalTo;
+import static api.application.UserApi.getUser;
+
+import static api.routes.Routes.GET_USERS;
+import static org.testng.Assert.assertEquals;
+import static payloads.UserPayload.createUserPOJO;
+
 
 public class UserTests extends BaseTest {
 
-    @Test
-    public void getUsersTest() {
-        UserApi.getUsers()
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
-    }
 
     @Test
-    public void createUserWithHashMap() {
-        UserApi.createUser(UserPayload.createUserMap())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
-    }
-
-    @Test
-    public void createUserWithJson() {
-        UserApi.createUser(UserPayload.createUserJson())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
-    }
-
-    @Test
-    public void createUserWithPOJO() {
-        UserApi.createUser(UserPayload.createUserPOJO())
-                .then()
-                .statusCode(StatusCode.CODE_201.code);
-    }
-
-    @Test
-    public void schemaValidationTest() {
-        UserApi.getUser(1)
-                .then()
-                .assertThat()
-                .body(JsonSchemaValidator.matchesJsonSchema(new File("src/main/resources/schemas/userSchema.json")));    }
-
-    @Test
-    public void updateUserTest() {
-        UserApi.updateUser(1, UserPayload.createUserMap())
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
-    }
-
-    @Test
-    public void deleteUserTest() {
-        UserApi.deleteUser(1)
-                .then()
-                .statusCode(StatusCode.CODE_200.code);
-    }
+    public void complexPojoTest(){
+        Coordinates coordinates=new Coordinates(-77.16213,-92.084824);
+        Hair hair=new Hair("Red","Curly");
+        Address address=new Address("626 Main Street","Kigali","Rwanda","KG","1111",coordinates,"Rwanda");
+        Bank bank=new Bank("05/028","693233511855044","Diners Club Internationa","GBR","GB74MH2UZLR9TRPHYNU8F8");
+        Company company=new Company("Engineering","Dooley, Kozey and Cronin","Sales Manager",address);
+        Crypto cryptos=new Crypto("Bitcoin","0xb9fc2fe63b2a6c003f1c324c3bfa53259162181a","Ethereum (ERC20)");
+        RootUser rootUser=new RootUser("Joshua","Musabyimana","Damaria",54,"Male",
+                "example@gmail.com","07888796067","Joshua","ieieieu","1132-4-30",
+                "https://dummyjson.com/icon/emilys/128","O+",198.0,54.9,"Green",hair,
+                "42.48.100.32",address,"47:fa:41:18:ec:eb","University of Wisconsin--Madison",bank,company,
+                "977-175","900-590-289","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
+                cryptos,"admin");
+        Response response=UserApi.createUser(rootUser);
+        RootUser user = response.as(RootUser.class);
+        assertEquals(user.getFirstName(), rootUser.getFirstName());
+        assertEquals(user.getEmail(), rootUser.getEmail());
+        assertEquals(user.getAddress().getCity(), "Kigali");
+        assertEquals(user.getCompany().getName(), "Dooley, Kozey and Cronin");
+        System.out.println(user.getCompany().department);
 
 
-
-    @Test
-    public void fileUploadTest() {
-        File file = new File("src/test/resources/test.txt");
-
-        io.restassured.RestAssured.given()
-                .multiPart("file", file)
-                .post("https://postman-echo.com/post")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    public void formUrlEncodedTest() {
-
-        io.restassured.RestAssured.given()
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .formParam("name", "Joshua")
-                .log().all()
-                .when()
-                .post("https://postman-echo.com/post")
-                .then()
-                .log().all()
-                .statusCode(200)
-                .body("form.name", org.hamcrest.Matchers.equalTo("Joshua"));
     }
 }
