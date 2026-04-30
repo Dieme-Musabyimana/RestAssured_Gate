@@ -16,7 +16,7 @@ public class FakerUtils {
 
     public static int getAge() {
         Faker faker = new Faker();
-        return Integer.parseInt(faker.regexify("[2-5][0-9]"));
+        return Integer.parseInt(faker.regexify("[0-9]"));
     }
 
 

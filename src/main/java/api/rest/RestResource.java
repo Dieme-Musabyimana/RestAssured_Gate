@@ -66,8 +66,8 @@ public class RestResource {
                 .formParam(paramName,value)
                 .when()
                 .post( path)
-                .then().
-                extract().response();
+                .then().spec(getPostManResponseSpec())
+                .extract().response();
 
     }
 }

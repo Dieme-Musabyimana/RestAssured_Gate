@@ -5,7 +5,7 @@ import base.BaseTest;
 import constants.StatusCode;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import org.testng.annotations.Test;
-import payloads.ComplextPayload;
+import payloads.ComplexPayload;
 import payloads.UserPayload;
 import utils.ConfigLoader;
 import static api.application.UserApi.*;
@@ -72,7 +72,7 @@ public class UserTests extends BaseTest {
 
     @Test
     public void complexPojoTest(){
-        RootUser requestUser = ComplextPayload.createComplexUserPayload();
+        RootUser requestUser = ComplexPayload.createComplexUserPayload();
         RootUser responseUser = UserApi.createUser(requestUser).as(RootUser.class);
         assertEquals(responseUser.getFirstName(), requestUser.getFirstName());
         assertEquals(responseUser.getCompany().getName(), "Dooley, Kozey and Cronin");
