@@ -7,6 +7,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setup() {
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+
+//        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 }

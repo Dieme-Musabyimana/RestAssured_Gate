@@ -1,6 +1,11 @@
 package api.complexPojo;
 
 public class Coordinates{
+    private double lat;
+    private double lng;
+
+
+
    public Coordinates(){}
     public Coordinates(double lat, double lng) {
         this.lat = lat;
@@ -23,6 +28,4 @@ public class Coordinates{
         this.lng = lng;
     }
 
-    public double lat;
-    public double lng;
 }

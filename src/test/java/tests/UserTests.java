@@ -75,8 +75,8 @@ public class UserTests extends BaseTest {
         RootUser requestUser = ComplexPayload.createComplexUserPayload();
         RootUser responseUser = UserApi.createUser(requestUser).as(RootUser.class);
         assertEquals(responseUser.getFirstName(), requestUser.getFirstName());
-        assertEquals(responseUser.getCompany().getName(), "Dooley, Kozey and Cronin");
-        assertEquals(responseUser.getAddress().getCity(), "Kigali");
+        assertEquals(responseUser.getCompany().getName(), requestUser.getCompany().getName());
+        assertEquals(responseUser.getAddress().getCity(), requestUser.getAddress().getCity());
 
     }}
 

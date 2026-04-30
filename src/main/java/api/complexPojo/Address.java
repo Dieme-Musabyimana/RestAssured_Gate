@@ -1,6 +1,16 @@
 package api.complexPojo;
 
 public class Address{
+
+    private String address;
+    private String city;
+    private String state;
+    private String stateCode;
+    private String postalCode;
+    private Coordinates coordinates;
+    private String country;
+
+
     public Address(){}
     public Address(String address, String city, String state, String stateCode, String postalCode, Coordinates coordinates, String country) {
         this.address = address;
@@ -68,11 +78,5 @@ public class Address{
         this.country = country;
     }
 
-    public String address;
-    public String city;
-    public String state;
-    public String stateCode;
-    public String postalCode;
-    public Coordinates coordinates;
-    public String country;
+
 }

@@ -1,6 +1,12 @@
 package api.complexPojo;
 
 public class Company{
+    private String department;
+    private String name;
+    private String title;
+    private Address address;
+
+
     public Company(){}
     public Company(String department, String name, String title, Address address) {
         this.department = department;
@@ -41,8 +47,4 @@ public class Company{
         this.address = address;
     }
 
-    public String department;
-    public String name;
-    public String title;
-    public Address address;
 }

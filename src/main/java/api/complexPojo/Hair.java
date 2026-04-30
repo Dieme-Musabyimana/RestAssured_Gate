@@ -2,6 +2,10 @@ package api.complexPojo;
 
 
 public class Hair{
+    private String color;
+    private String type;
+
+
     public Hair(){}
     public Hair(String color, String type) {
         this.color = color;
@@ -24,6 +28,4 @@ public class Hair{
         this.type = type;
     }
 
-    public String color;
-    public String type;
 }

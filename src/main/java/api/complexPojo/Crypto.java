@@ -1,5 +1,10 @@
 package api.complexPojo;
 public class Crypto{
+    private String coin;
+    private String wallet;
+    private String network;
+
+
     public Crypto(){}
     public Crypto(String coin, String wallet, String network) {
         this.coin = coin;
@@ -31,7 +36,4 @@ public class Crypto{
         this.network = network;
     }
 
-    public String coin;
-    public String wallet;
-    public String network;
 }

@@ -1,6 +1,13 @@
 package api.complexPojo;
 
 public class Bank{
+    private String cardExpire;
+    private String cardNumber;
+    private String cardType;
+    private String currency;
+    private String iban;
+
+
     public Bank(){}
     public Bank(String cardExpire, String cardNumber, String cardType, String currency, String iban) {
         this.cardExpire = cardExpire;
@@ -50,9 +57,4 @@ public class Bank{
         this.iban = iban;
     }
 
-    public String cardExpire;
-    public String cardNumber;
-    public String cardType;
-    public String currency;
-    public String iban;
 }
